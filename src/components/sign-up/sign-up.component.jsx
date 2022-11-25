@@ -8,6 +8,7 @@ import { createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils"
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/formi-input.component";
 
+
 const defaultFields = {
   displayName: "",
   email: "",
@@ -18,6 +19,7 @@ const defaultFields = {
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +41,7 @@ const SignUp = () => {
         email,
         password
       );
+ 
       console.log(user);
 
       const userDocRef = await createUserDocumentFromAuth(user, {
