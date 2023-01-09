@@ -11,6 +11,7 @@ import Home from "./routes/home/home.component";
 import Authentication from "./components/authentication/authentication.component";
 import Shop from "./components/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
+import { setCategoriesMap } from "./store/category/category.actions";
 
 const App = () => {
   const dispatch = useDispatch();

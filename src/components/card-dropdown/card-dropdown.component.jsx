@@ -13,9 +13,12 @@ import {
   CartItems,
   EmptyMSG,
 } from "./cart-dropdown.styles.jsx";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selectors.js";
 
 const CardDropdown = () => {
-  const { cartItems } = useContext(CartContext);
+  //const { cartItems } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
 
   return (

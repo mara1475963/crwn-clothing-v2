@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Fragment } from "react/cjs/react.production.min";
 import { CategoriesContext } from "../../contexts/categoriesContextprovider";
 
@@ -10,9 +10,19 @@ import { Routes, Route } from "react-router-dom";
 import CategoriesPreview from "../../routes/categories-preview/categrires-preview.component";
 import Category from "../../routes/category/category.component";
 import { CategoriesContextProvider } from "../../contexts/categoriesContextprovider";
+import { useDispatch } from "react-redux";
+import {
+  fetchCategoriesAsync,
+  setCategories,
+} from "../../store/category/category.actions";
+import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
 const Shop = () => {
-  const { categoriesMap } = useContext(CategoriesContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategoriesAsync);
+  }, []);
 
   return (
     <CategoriesContextProvider>

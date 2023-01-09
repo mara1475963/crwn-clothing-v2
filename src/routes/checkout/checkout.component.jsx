@@ -4,8 +4,15 @@ import { CartContext } from "../../contexts/cardContextprovider";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 
 import "./checkout.styles.scss";
+import { useSelector } from "react-redux";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../store/cart/cart.selectors";
 const Checkout = () => {
-  const { cartItems } = useContext(CartContext);
+  //const { cartItems } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   return (
     <div className="checkout-container">
@@ -31,7 +38,7 @@ const Checkout = () => {
       })}
       <span className="total">
         TOTAL:
-        {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)} $
+        {cartTotal} $
       </span>
     </div>
   );
