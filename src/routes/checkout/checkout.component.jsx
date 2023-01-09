@@ -1,46 +1,47 @@
-import React from "react";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cardContextprovider";
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import { useSelector } from 'react-redux';
 
-import "./checkout.styles.scss";
-import { useSelector } from "react-redux";
 import {
   selectCartItems,
   selectCartTotal,
-} from "../../store/cart/cart.selectors";
+} from '../../store/cart/cart.selector';
+
+import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+} from './checkout.styles';
+
 const Checkout = () => {
-  //const { cartItems } = useContext(CartContext);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
 
   return (
-    <div className="checkout-container">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
-          <span>Descripton</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Description</span>
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
-      {cartItems.map((product) => {
-        return <CheckoutItem key={product.id} product={product} />;
-      })}
-      <span className="total">
-        TOTAL:
-        {cartTotal} $
-      </span>
-    </div>
+        </HeaderBlock>
+      </CheckoutHeader>
+      {cartItems.map((cartItem) => (
+        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+      ))}
+      <Total>Total: ${cartTotal}</Total>
+    </CheckoutContainer>
   );
 };
 

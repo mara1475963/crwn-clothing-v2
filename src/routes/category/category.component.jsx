@@ -1,36 +1,41 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import "./category.styles.scss";
-import { useContext, useState, useEffect } from "react";
-import { CategoriesContext } from "../../contexts/categoriesContextprovider";
+import { useState, useEffect, Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+import ProductCard from '../../components/product-card/product-card.component';
+import Spinner from '../../components/spinner/spinner.component';
+
 import {
-  selectCategoriesIsLoading,
   selectCategoriesMap,
-} from "../../store/category/category.selectors";
-import ProductCard from "../../components/product-card/product-card.component";
-import { useSelector } from "react-redux";
-import Spinner from "../../components/spinner/spinner.component";
+  selectIsLoading,
+} from '../../store/categories/category.selector';
+
+import { CategoryContainer, Title } from './category.styles';
+
 const Category = () => {
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectIsLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
-  const isLoading = useSelector(selectCategoriesIsLoading);
 
-  console.log(isLoading);
   useEffect(() => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
-  return (
-    <>
-      <h2 className="category-title ">{category}</h2>
 
-      <div className="category-container">
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </div>
-    </>
+  return (
+    <Fragment>
+      <Title>{category.toUpperCase()}</Title>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CategoryContainer>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CategoryContainer>
+      )}
+    </Fragment>
   );
 };
 

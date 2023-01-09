@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom";
-import Categories from "../../components/categories/categories-component";
+import { Outlet } from 'react-router-dom';
+
+import Directory from '../../components/directory/directory.component';
 
 const Home = () => {
   return (
     <div>
-      <Categories />
+      <Directory />
       <Outlet />
     </div>
   );
